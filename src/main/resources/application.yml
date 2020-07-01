@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    hikari:
+      username: root
+      password: root
+    url: jdbc:mysql://localhost:3306/base_spring
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Bangkok
+  zipkin:
+    baseUrl: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 0.1
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+jwt:
+  token:
+    secret: "f0Mgjk7DiCIxHs8zFMyE62Xy6QvIMol3"
+    validity: 30000
