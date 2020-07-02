@@ -2,6 +2,7 @@ package com.panupat.baseproject.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -24,6 +25,9 @@ public class JwtTokenUtil {
 
     private long validity;
     private String secret;
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private Key key;
 
     @PostConstruct

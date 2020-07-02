@@ -6,7 +6,7 @@ spring:
     url: jdbc:mysql://localhost:3306/base_spring
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     properties:
       hibernate:
         jdbc:
@@ -26,3 +26,7 @@ jwt:
   token:
     secret: "f0Mgjk7DiCIxHs8zFMyE62Xy6QvIMol3"
     validity: 30000
+
+bcrypt:
+  version: $2a
+  strength: -1
