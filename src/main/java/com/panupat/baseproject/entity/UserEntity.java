@@ -8,6 +8,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity(name = "user")
+@NamedEntityGraph(
+        name = "UserEntity.userGroup",
+        attributeNodes = @NamedAttributeNode(value = "userGroupEntity", subgraph = "subgraph.authority"),
+        subgraphs = @NamedSubgraph(name = "subgraph.authority",
+                attributeNodes = @NamedAttributeNode(value = "groupAuthorityEntities")
+        )
+)
 public class UserEntity extends BaseEntity {
 
     @Id
@@ -21,4 +28,8 @@ public class UserEntity extends BaseEntity {
 
     @Column(length = 60)
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "user_group_id")
+    private UserGroupEntity userGroupEntity;
 }
