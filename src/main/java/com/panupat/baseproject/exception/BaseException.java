@@ -1,11 +1,11 @@
 package com.panupat.baseproject.exception;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@Setter
-public class BaseException extends RuntimeException{
-    private String errorCode;
-    private String errorMessage;
+@RequiredArgsConstructor
+public class BaseException extends RuntimeException {
+    private final String errorCode;
+    private final String errorMessage;
 }

@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -28,7 +26,7 @@ public class AuthenticationService {
                 userEntity.getEmail(),
                 userEntity.getUserGroupEntity().getGroupAuthorityEntities()
                         .stream().map(GroupAuthorityEntity::getAuthorityName)
-                        .collect(Collectors.toList())
+                        .toList()
         );
     }
 }

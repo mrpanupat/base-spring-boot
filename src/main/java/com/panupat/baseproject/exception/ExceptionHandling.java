@@ -3,7 +3,7 @@ package com.panupat.baseproject.exception;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.panupat.baseproject.module.BaseResponse;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
@@ -17,7 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
 
-@Slf4j
+@Log4j2
 @ControllerAdvice
 public class ExceptionHandling {
 
@@ -26,9 +26,9 @@ public class ExceptionHandling {
     @ExceptionHandler({BaseException.class})
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public BaseResponse<?> baseExceptionHandling(BaseException exception) {
+    public BaseResponse<Object> baseExceptionHandling(BaseException exception) {
         log.error("===== Start: baseExceptionHandling =====");
-        BaseResponse<?> baseResponse = new BaseResponse<>();
+        BaseResponse<Object> baseResponse = new BaseResponse<>();
         BaseResponse.Status status = new BaseResponse.Status(
                 exception.getErrorCode(),
                 exception.getErrorMessage());

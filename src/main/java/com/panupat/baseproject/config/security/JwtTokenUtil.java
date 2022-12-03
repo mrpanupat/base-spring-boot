@@ -2,6 +2,7 @@ package com.panupat.baseproject.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Date;
@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -45,7 +44,7 @@ public class JwtTokenUtil {
     public List<SimpleGrantedAuthority> getAuthoritiesFromToken(String token) {
         final Claims claims = getAllClaimsFromToken(token);
         List<?> authorities = claims.get("authorities", List.class);
-        return authorities.stream().map(a -> new SimpleGrantedAuthority(a.toString())).collect(Collectors.toList());
+        return authorities.stream().map(a -> new SimpleGrantedAuthority(a.toString())).toList();
     }
 
     //retrieve expiration date from jwt token

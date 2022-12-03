@@ -33,7 +33,7 @@ public class PasswordEncoderConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         SecureRandom secureRandom = null;
-        if (!StringUtils.isEmpty(random))
+        if (StringUtils.hasText(random))
             secureRandom = new SecureRandom(random.getBytes());
         return new BCryptPasswordEncoder(version, strength, secureRandom);
     }
