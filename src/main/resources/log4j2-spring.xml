@@ -4,7 +4,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
                     disableAnsi="false"
-                    pattern="%style{%d{ISO8601}}{blue}|%highlight{%-5level}|%style{%3tid}{bright,blue}|%style{%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId},%X{X-Span-Export}}{blink,red}|%style{%C{1.}}{bright,yellow}|%msg%n%throwable"/>
+                    pattern="%style{%d{ISO8601}}{blue}|%highlight{%-5level}|%style{%3tid}{bright,blue}|%style{%X{traceId},%X{spanId}}{blink,red}|%style{%C{1.}}{bright,yellow}|%msg%n%throwable"/>
         </Console>
 
         <!--        <RollingFile name="RollingFile"-->
