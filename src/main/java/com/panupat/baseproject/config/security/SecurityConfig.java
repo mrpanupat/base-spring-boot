@@ -18,9 +18,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and()
                 .csrf().disable()
+                .httpBasic().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/v1/authenticate").permitAll()
                 .requestMatchers(HttpMethod.POST, "/v1/user/register").permitAll()
+                //Api docs
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                //Actuator
                 .requestMatchers("/info", "/health").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

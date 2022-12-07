@@ -9,6 +9,8 @@ import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Log4j2
 @ControllerAdvice
@@ -37,6 +40,21 @@ public class ExceptionHandling {
         return baseResponse;
     }
 
+
+    @ExceptionHandler({BindException.class})
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public BaseResponse<Object> exceptionHandling(BindException exception) {
+        log.error("===== Start: validation fail =====");
+        BaseResponse<Object> baseResponse = new BaseResponse<>();
+        BaseResponse.Status status = new BaseResponse.Status(
+                "4001",
+                getMessageFromBindingResult(exception));
+        baseResponse.setStatus(status);
+        log.error("===== End: validation fail =====");
+        return baseResponse;
+    }
+
     @Bean
     public ErrorAttributes errorAttributes() {
         return new DefaultErrorAttributes() {
@@ -55,5 +73,11 @@ public class ExceptionHandling {
                 return map;
             }
         };
+    }
+
+    private String getMessageFromBindingResult(BindingResult bindingResult) {
+        return bindingResult.hasErrors() ? bindingResult.getFieldErrors().stream().map(error ->
+                error.getField() + " : " + error.getDefaultMessage()
+        ).collect(Collectors.joining(", ")) : "";
     }
 }
